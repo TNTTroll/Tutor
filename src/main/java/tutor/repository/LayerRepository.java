@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LayerRepository extends R2dbcRepository<LayerEntity, String> {
+  Mono<ChatEntity> findByIdAndUserId(String id, String userId);
 }
