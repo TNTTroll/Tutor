@@ -8,7 +8,7 @@ insert into filter (id, user_id, types_ids)
 values ('1','2','{1, 3, 5}'),
        ('2','3','{}');
 
-insert into tutor (id, filter_id, author_id, title, message, created_at, status)
+insert into tutororial (id, filter_id, author_id, title, tutor, created_at, status)
 values ('1','1','1','Доброе утро','Сегодня в Москве отличная погода',now(),'UNREAD'),
        ('2','1','2','Закат на фоне','Зарабатывать миллионы можно даже из дома',now(),'UNREAD'),
        ('3','2','3','Вид лучше','Как зарабатывать так, чтобы в руке был бокал?',now(),'UNREAD'),
