@@ -5,6 +5,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import reactor.core.publisher.Mono;
 
 public interface KafkaService<K, V> {
-    Mono<String> sendTutor(String tutorId);
+    Mono<TutorEntity> sendTutor(TutorEntity tutor);
     Mono<String> getTutorId();
 }
