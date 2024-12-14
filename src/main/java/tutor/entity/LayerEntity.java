@@ -13,7 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("layers")
+@Table("layer")
 public class LayerEntity implements Persistable<String> {
     @Id
     @Column("id")
