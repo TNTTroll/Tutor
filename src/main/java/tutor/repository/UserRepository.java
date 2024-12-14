@@ -10,8 +10,8 @@ import reactor.core.publisher.Flux;
 public interface UserRepository extends R2dbcRepository<UserEntity, String> {
     @Query("""
             SELECT u.id 
-            FROM users u
-            WHERE u.status != 'USER' 
+            FROM user u
+            WHERE u.status <> 'USER' 
             """)
     Flux<String> getAllNotUserId();
 }
