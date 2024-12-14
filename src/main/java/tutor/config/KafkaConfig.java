@@ -60,4 +60,25 @@ public class KafkaConfig {
         ));
         return properties;
     }
+
+    @Bean
+    public ProducerFactory<String, String> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfig());
+    }
+
+    @Bean
+    public Map<String, Object> producerConfig() {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        return properties;
+    }
+
+    @Bean
+    KafkaTemplate<String, String> tutorKafkaTemplate() {
+        KafkaTemplate<String, String> template = new KafkaTemplate<>(producerFactory());
+        template.setConsumerFactory(tutorConsumerFactory());
+        return template;
+    }
 }
