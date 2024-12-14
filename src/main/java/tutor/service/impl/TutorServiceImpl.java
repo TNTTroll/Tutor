@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import tutor.entity.TutorEntity;
 import tutor.enums.TutorStatus;
 import tutor.repository.TutorRepository;
-import tutor.service.KafkaService;
 import tutor.service.TutorService;
 import tutor.service.UserService;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ import static tutor.util.Util.UNAUTHORIZED_ACCESS_ATTEMPT_EXCEPTION;
 public class TutorServiceImpl implements TutorService {
     private final TutorRepository tutorRepository;
 
-    private final KafkaService kafkaService;
     private final UserService userService;
     private final LayerService layerService;
 
@@ -52,7 +50,6 @@ public class TutorServiceImpl implements TutorService {
                         .filter(checkNotUser -> !checkNotUser)
                         .map(check -> entity)
                 )
-                .flatMap(kafkaService::sendTutor)
                 .flatMap(entity -> layerService.addSupportToLayer((TutorEntity) entity, authorId))
                 .map(layer -> tutorEntity);;
     }
@@ -62,7 +59,6 @@ public class TutorServiceImpl implements TutorService {
         return checkIdFromNotUserIdList(userId)
                 .filter(check -> check)
                 .switchIfEmpty(Mono.error(UNAUTHORIZED_ACCESS_ATTEMPT_EXCEPTION))
-                .flatMap(check -> (Mono<String>) kafkaService.getTutorId())
                 .flatMap(tutorRepository::findById);
     }
 
